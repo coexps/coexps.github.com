@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="css/theme.css" media="screen" type="text/css" />
+<title>Welcome to xxx</title>
+
+</head>
+<body>
+<h1>Welcome to xxx</h1>
+
+<hr />
+
+<h2>Abstruct</h2>
+
+<p>Multiple myeloma is a hematological cancer of plasma B-cells and remains incurable. Two major subtypes of myeloma, hyperdiploid (HMM) and non-hyperdiploid myeloma (NHMM), have distinct chromosomal alterations and differential survival outcomes. Transcription factors (TFs) such as NF-κB and MYC are over-activated in some myeloma patients and implicated in oncogenesis. Dysregulation of cyclins are also proposed as a unifying event in myeloma. Here we have developed a TF-pathway co-expression analysis to identify TFs that have significant co-expression changes with the cell cycle arrest pathway between two myeloma subtypes. We have found  that MYC, NF-κB and HOXA9 genes have significantly lower co-expression with the cell cycle arrest pathway in HMM, co-occurring with their over-activation in HMM. In contrast, ESR1, SP1 and E2F1 have significantly lower co-expression with the cell cycle arrest pathway in NHMM. We propose a cooperation model of ESR1 and SP1 in regulating cell cycle arrest. Drug combination treatment of four NHMM cell lines shows that co-targeting ESR1 and SP1 has synergistic effect on inhibiting myeloma proliferation. We provide the TF-PathCo analysis method for use in other cancers and diseases: <http://www.ChengLiLab.org/software></p>
+
+<p><code>Classifying hyperdiploidy status of multiple myeloma samples using gene expression profiles</code></p>
+
+<h2>Download</h2>
+
+<p><a href="data/result_new_try.r">code</a></p>
+
+<h2>Usage</h2>
+
+<h3><em>install</em></h3>
+
+<p>Package affy</p>
+
+<pre><code>&gt; source("http://bioconductor.org/biocLite.R")
+&gt; biocLite("affy")
+</code></pre>
+
+<p>Package AnnotationDbi</p>
+
+<pre><code>&gt; source("http://bioconductor.org/biocLite.R")
+&gt; biocLite("AnnotationDbi")
+</code></pre>
+
+<p>Data CDF file <a href="http://brainarray.mbni.med.umich.edu/Brainarray/Database/CustomCDF/CDF_download.asp">link</a></p>
+
+<p>Exmaple for download "HG-U133_Plus2" array: First, verify you OS and R version. Here my work on Mac OS and R2.15. Second, click the link above, find column names R.15,BioCxxx and raw names REFSEQ, click "click me". Last, look for ran names "HG-U133_Plus2" and column names "source"(win32 for windows), click "C".</p>
+
+<pre><code>run R GUI --&gt; package/data --&gt; package installer --&gt; local source package.
+</code></pre>
+
+<p><code>Note:Do not use command install.packages(), It does not work!</code></p>
+
+<p>Install ClassifyMM</p>
+
+<pre><code>run R GUI --&gt; package/data --&gt; package installer --&gt; local source package.
+</code></pre>
+
+<p>About Training data</p>
+
+<p>what's training data? how to create a taining data set? you can use default data by following code in R:</p>
+
+<pre><code>data(td, package="ClassifyMM")
+</code></pre>
+
+<h3><em>Input for main function mmsc()</em></h3>
+
+<p><em>Raw_Dir</em> | <em>Exp_File</em> : Raw_Dir for raw data directory and Exp_File for expression data file name. The format of raw data is compressed .cel from GEO database by affy matrix technology. You can input raw data directly, then the program will first calculate the expression by R package <em>affy</em>. Otherwise, you must provide common style expression data. You can't provide both Raw_Dir and Exp_File.</p>
+
+<p><em>CDF_Name</em> : Refer to CDF names used by package "affy".</p>
+
+<p><em>Tra_Data</em> : A basic data.</p>
+
+<p>[<em>Out_Dir</em>] : A directory contain all of result and temp file. By default it's "./OutPut".</p>
+
+<p>[<em>K_Const</em>] : The number of neighbors used in KNN classifer. By default it's 16.</p>
+
+<p>[<em>Tun_Time</em>] : By default it's 1:140.</p>
+
+<p><code>Note:[ parameter ] parameter is optional.</code></p>
+
+<h3><em>Output</em></h3>
+
+<p>ExprData_MM_sort.txt :</p>
+
+<p>Expression_Temp.XLS :</p>
+
+<p>MeanDistPlot :</p>
+
+<p>MMSCresult_k16.txt :</p>
+
+<h3><em>Example</em></h3>
+
+<pre><code>#set workshop
+setwd("~/Documents/cmmtest/");
+
+#overview the file and directory
+dir();
+
+#load package
+library(ClassifyMM);
+
+#load training data
+data(td,package="ClassifyMM")
+
+#analysie data
+mmsc(Raw_Dir=“GSE6401_RAW/”, Tra_Data=td, CDF_Name="HGU133a_hs_refseq");
+
+#overview the file and diretor  when analysis finished.
+dir()
+</code></pre>
+
+<h3><em>Screenshot</em></h3>
+
+<p><img src="image/cdf1.png" alt="image" />
+<img src="image/cdf2.png" alt="image" />
+<img src="image/dir.png" alt="image" />
+<img src="image/run.png" alt="image" />
+<img src="image/result.png" alt="image" /></p>
+
+<h2>About</h2>
+
+<p>Developed by <a href="http://www.chenglilab.org">Cheng Li Lab</a>.</p>
+</body>
+</html>
